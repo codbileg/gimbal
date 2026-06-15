@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Butterfly Effect</title>
+
+<style>
+
+/* =========================
+   BASIC
+========================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: serif;
+}
+
+body{
+    background:black;
+    color:white;
+    overflow-x:hidden;
+    background:
+    radial-gradient(circle at top, #0a1630, black 60%);
+}
+
+/* =========================
+   CURSOR LIGHT
+========================= */
+
+#cursor-light{
+    width:20px;
+    height:20px;
+    background:#4da3ff;
+    border-radius:50%;
+    position:fixed;
+    pointer-events:none;
+    filter:blur(10px);
+    z-index:999;
+}
+
+/* =========================
+   INTRO PAGE
+========================= */
+
+#intro{
+    width:100%;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    position:fixed;
+    background:black;
+    z-index:100;
+}
+
+#butterfly{
+    width:600px;
+    cursor:pointer;
+    transition:2s;
+    filter:drop-shadow(0 0 20px #5fa8ff);
+}
+
+.fade-out{
+    opacity:0;
+}
+
+/* =========================
+   STORY PAGE
+========================= */
+
+#story{
+    width:100%;
+    min-height:900vh;
+    text-align:center;
+    padding-top:50vh;
+}
+
+.big-title{
+    font-size:5rem;
+    color:#b7d4ff;
+    text-shadow:0 0 20px #4f8dff;
+}
+
+.middle-title{
+    font-size:3rem;
+    color:#ce8ead;
+    text-shadow:0 0 20px #5e1b3b;
+    margin-top: 300px;
+    margin-bottom: 30px;
+}
+
+
+.small-text{
+    padding: 20px;
+    margin-left: 300px;
+    margin-right: 300px;
+    font-size:1.4rem;
+    color:#d4dfff;
+}
+
+/* =========================
+   SECTION
+========================= */
+
+.section{
+    margin-top:350px;
+}
+
+/* =========================
+   GIFS
+========================= */
+
+.gif{
+    width:350px;
+}
+
+/* =========================
+   QUOTE
+========================= */
+
+.quote{
+    width:70%;
+    margin:auto;
+    margin-top:80px;
+    font-size:1.6rem;
+    line-height:1.8;
+    color:#d9e7ff;
+}
+
+/* =========================
+   BUTTERFLY IMAGE
+========================= */
+
+#office{
+    width:800px;
+    
+    margin-top:80px;
+}
+
+/* =========================
+   WORLD TRADE CENTER
+========================= */
+
+#wtc{
+    width:500px;
+    margin-top:50px;
+    box-shadow:0 0 30px rgba(255,255,255,0.2);
+}
+
+/* =========================
+   NEXT BUTTON
+========================= */
+
+.next-box{
+    width:180px;
+    padding:20px;
+    border:2px solid #5ea2ff;
+    margin:auto;
+    margin-top:80px;
+    cursor:pointer;
+    transition:0.5s;
+    font-size:1.5rem;
+}
+
+.next-box:hover{
+    background:#2458a8;
+    box-shadow:0 0 20px #5fa8ff;
+}
+
+/* =========================
+   SECOND PAGE
+========================= */
+
+#page2{
+    display:none;
+    width:100%;
+    min-height:800vh;
+    text-align:center;
+    padding-top:200px;
+}
+
+.date-title{
+    font-size:5rem;
+    color:#d9e8ff;
+}
+
+/* =========================
+   CLOCK
+========================= */
+
+.clock{
+    width:700px;
+    animation:blink 6s infinite;
+    box-shadow:0 0 20px rgba(70,130,255,0.4);
+}
+
+.tv{
+    width:700px;}
+
+.shake{
+    width:700px;
+    animation:shake 0.4s infinite;
+}
+
+@keyframes shake{
+
+    0%{transform:translateX(0);}
+    25%{transform:translateX(-3px);}
+    50%{transform:translateX(3px);}
+    75%{transform:translateX(-3px);}
+    100%{transform:translateX(0);}
+}
+/* =========================
+   BLINK EFFECT
+========================= */
+
+@keyframes blink{
+
+    0%{
+        opacity:1;
+    }
+
+    50%{
+        opacity:0.2;
+    }
+
+    100%{
+        opacity:1;
+    }
+
+}
+
+/* =========================
+   WINDOWS
+========================= */
+
+.windows{
+    display:flex;
+    justify-content:center;
+    gap:30px;
+    margin-top:100px;
+    flex-wrap:wrap;
+}
+
+.window{
+    width:180px;
+    height:220px;
+    border:2px solid #5da2ff;
+    background:rgba(255,255,255,0.03);
+    position:relative;
+    overflow:hidden;
+    cursor:pointer;
+    transition:0.5s;
+}
+
+.window:hover{
+    transform:scale(1.05);
+    box-shadow:0 0 20px #5da2ff;
+}
+
+/* DARK COVER */
+
+.window::after{
+    content:"";
+    position:absolute;
+    width:100%;
+    height:100%;
+    background:blue;
+    top:0;
+    left:0;
+    transition:0.5s;
+}
+
+.window.open::after{
+    transform:translateY(-100%);
+}
+
+/* KEY */
+
+#key{
+    width:100px;
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%, -50%);
+    opacity:0;
+    transition:1s;
+}
+
+.special-window.open #key{
+    opacity:1;
+}
+
+/* =========================
+   METRO + COFFEE
+========================= */
+
+.metro-gif {
+    width: 800px;
+    margin-top:-300px;
+    margin-bottom: -200px;
+}
+.coffee-img{
+    width:700px;
+    box-shadow:0 0 20px rgba(70,130,255,0.4);
+    margin-top: 100px;
+}
+
+/* =========================
+   TEXT
+========================= */
+
+.story-text{
+    font-size:2rem;
+    margin-top:50px;
+    color:#dce8ff;
+    padding: 60px;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+.timeline{
+
+    position:fixed;
+
+    right:100px;
+    top:50%;
+
+    transform:translateY(-50%);
+
+    display:flex;
+    flex-direction:column;
+
+    align-items:center;
+
+    gap:40px;
+
+    z-index:999;
+}
+
+.timeline::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:4px;
+    height:100%;
+
+    background:
+    repeating-linear-gradient(
+        to bottom,
+        #1d4aa3 0px,
+        #1d4aa3 5px,
+        transparent 5px,
+        transparent 12px
+    );
+
+    z-index:-1;
+}
+
+.timeline a{
+
+    width:70px;
+    height:70px;
+
+    border-radius:50%;
+
+    background:#97baff;
+
+    color:black;
+
+    text-decoration:none;
+
+    display:flex;
+
+    justify-content:center;
+    align-items:center;
+
+    transition:.3s;
+}
+
+.timeline a:hover{
+
+    background:#5da2ff;
+
+    transform:scale(1.1);
+
+    box-shadow:0 0 15px #5da2ff;
+}
+
+.timeline{
+    display:none;
+}
+
+
+
+#fly{
+    width:500px;
+    cursor:pointer;
+    animation:flyGlow 2s infinite;
+    padding: 80px;
+}
+
+@keyframes flyGlow{
+
+    0%{
+        filter:drop-shadow(0 0 5px #5da2ff);
+    }
+
+    50%{
+        filter:drop-shadow(0 0 35px #5da2ff);
+    }
+
+    100%{
+        filter:drop-shadow(0 0 5px #5da2ff);
+    }
+
+}
+
+.footer{
+
+    margin-top:300px;
+
+    padding:120px 20px;
+
+    text-align:center;
+
+    background:linear-gradient(
+        to top,
+        #02050d,
+        #000
+    );
+
+    border-top:1px solid rgba(93,162,255,0.2);
+
+}
+
+.footer h2{
+
+    font-size:3rem;
+
+    color:#b7d4ff;
+
+    text-shadow:0 0 15px #5da2ff;
+
+    margin-bottom:20px;
+
+}
+
+.footer p{
+
+    font-size:1.2rem;
+
+    color:#dce8ff;
+
+    margin-top:10px;
+
+}
+
+.footer-small{
+
+    margin-top:40px;
+
+    font-size:0.9rem;
+
+    opacity:0.6;
+
+    letter-spacing:3px;
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- =========================
+     CURSOR LIGHT
+========================= -->
+
+<div id="cursor-light"></div>
+
+<!-- =========================
+     INTRO
+========================= -->
+
+<section id="intro">
+
+    <img src="newyork.jpg" id="butterfly">
+
+</section>
+
+<!-- =========================
+     FIRST STORY PAGE
+========================= -->
+
+<section id="story">
+
+    <h1 class="big-title">New York City</h1>
+
+    <p class="small-text" id="date-text"></p>
+
+    <!-- BUTTERFLY GIF -->
+
+    <div class="section">
+
+        <img src="butterfly.gif" class="gif">
+
+    </div>
+
+    <!-- TORNADO GIF -->
+
+    <div class="section">
+
+        <img src="tornado.gif" class="gif">
+
+    </div>
+
+    <!-- QUOTE -->
+
+    <div class="section">
+
+        <p class="quote">
+            It was just another Tuesday morning.
+
+        </p>
+    
+
+    </div>
+
+    <!-- BUTTERFLY1 -->
+
+    <div class="section">
+
+        <img src="office.jpg" id="office">
+
+    </div>
+
+    <p class="quote">
+            Another ordinary day of work was getting underway.
+
+        </p>
+
+
+    <!-- 9/11 -->
+
+    <div class="section">
+
+        <h1 class="big-title">
+            Then everything changed.
+        </h1>
+
+        <p class="small-text">
+            None of them knew they were living through the final moments of a normal morning.
+        </p>
+
+        <img src="wtc.jpg" id="wtc">
+
+        <div class="next-box" id="nextBtn">
+            more
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =========================
+     SECOND PAGE
+========================= -->
+
+<section id="page2">
+
+    <h1 class="big-title" id="minute-title"></h1>
+
+    <div class="timeline">
+
+    <a href="#time846">8:46</a>
+
+    <a href="#time903">9:03</a>
+
+    <a href="#time937">9:37</a>
+
+    <a href="#time959">9:59</a>
+
+    <a href="#time1003">10:03</a>
+
+    <a href="#time1028">10:28</a>
+
+</div>
+
+    <!-- CLOCK -->
+
+    <div class="section">
+
+        <p class="story-text" id="time846">
+           8:46am - North Tower struck
+        </p>
+
+        <img src="846.jpg" class="clock">
+
+        <p class="story-text" id="time903">
+           9:03am - South Tower struck — live on television
+        </p>
+
+        <img src="903.jpg" class="tv">
+
+        <p class="story-text" id="time937">
+           9:37am - Pentagon attacked
+        </p>
+
+        <img src="937.jpg" class="tv">
+
+        <p class="story-text" id="time959">
+           9:59am - South Tower collapses
+        </p>
+
+        <img src="959.jpg" class="shake">
+
+        <p class="story-text" id="time1003">
+           10:03am - Flight 93 crashes in Pennsylvania
+        </p>
+
+        <img src="1003.jpg" class="tv">
+
+        <p class="story-text" id="time1028">
+           10:28am - North Tower collapses
+        </p>
+
+        <img src="1028.jpg" class="shake">
+
+    </div>
+
+    <div class="section">
+
+        <h1 class="big-title">
+            BUT
+        </h1>
+
+        <p class="small-text">
+            Not everyone was lost that day.
+        </p>
+
+        <img src="fly.png" id="fly">
+
+
+    </div>
+
+</section>
+
+<section id="page3" style="display:none; width:100%; min-height:500vh; text-align:center; padding-top:10px;">
+
+    <!-- KEY -->
+
+    <div class="section">
+
+        <p class="story-text">
+            1. I can't find my key
+        </p>
+        <p class="small-text">
+            That morning, a woman couldn't find her keys. The delay made her late for work. She never reached her office in the World Trade Center. A few lost minutes saved her life.
+
+        </p>
+
+        <div class="windows">
+
+            <div class="window"></div>
+
+            <div class="window"></div>
+
+            <div class="window"></div>
+
+            <div class="window special-window">
+
+                <img src="key.jpg" id="key">
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- METRO -->
+
+    <div class="section">
+
+        <p class="story-text">
+            2. I missed my metro
+        </p>
+        <p class="small-text">
+            He missed his train that morning. Just a few minutes behind schedule, he never made it to the towers before the attacks. A small delay saved his life.</p>
+
+        <img src="metro.gif" class="metro-gif">
+
+    </div>
+
+    <!-- COFFEE -->
+
+    <div class="section">
+
+        <p class="story-text">
+            3. I wanna drink coffee
+        </p>
+        <p class="small-text">
+            She left the building for a cup of coffee. Minutes later, the attacks began. A routine morning habit became the reason she survived.</p>
+
+        <img src="coffee.jpg" class="coffee-img">
+
+    </div>
+
+    <h1 class="middle-title">
+            Small moments changed entire lives.</h1>
+         <p class="small-text">
+            Perhaps some things happen for a reason, even when we do not understand why.</p>
+
+</section>
+
+<footer class="footer">
+
+    <h2>September 11 Attack</h2>
+
+    <p>
+        아즈처즈 서드비렉
+    </p>
+
+    <p class="footer-small">
+        24102608
+    </p>
+
+</footer>
+
+<script>
+
+/* =========================
+   CURSOR LIGHT
+========================= */
+
+const cursorLight = document.getElementById("cursor-light");
+
+document.addEventListener("mousemove", (e)=>{
+
+    cursorLight.style.left = e.clientX + "px";
+    cursorLight.style.top = e.clientY + "px";
+
+});
+
+/* =========================
+   BUTTERFLY CLICK
+========================= */
+
+const butterfly = document.getElementById("butterfly");
+const intro = document.getElementById("intro");
+
+butterfly.addEventListener("click", ()=>{
+
+    butterfly.classList.add("fade-out");
+
+    setTimeout(()=>{
+
+        intro.style.display = "none";
+
+        typeText();
+
+    },2000);
+
+});
+
+/* =========================
+   NEXT BUTTON
+========================= */
+
+const nextBtn = document.getElementById("nextBtn");
+const story = document.getElementById("story");
+const page2 = document.getElementById("page2");
+
+nextBtn.addEventListener("click", ()=>{
+
+    story.style.display = "none";
+    page2.style.display = "block";
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+    typeMinute();
+
+});
+
+/* =========================
+   WINDOWS
+========================= */
+
+const windowsBox = document.querySelectorAll(".window");
+
+windowsBox.forEach(windowBox=>{
+
+    windowBox.addEventListener("click", ()=>{
+
+        windowBox.classList.toggle("open");
+
+    });
+
+});
+
+/* =========================
+   TYPING EFFECT
+========================= */
+
+const text = "SEPTEMBER 11, 2001";
+const dateText = document.getElementById("date-text");
+
+function typeText(){
+
+    dateText.textContent = "";
+    let index = 0;
+
+    const typing = setInterval(() => {
+
+        dateText.textContent += text[index];
+        index++;
+
+        if(index >= text.length){
+            clearInterval(typing);
+        }
+
+    }, 120);
+
+}
+
+const minuteText = "MINUTE BY MINUTE";
+const minuteTitle = document.getElementById("minute-title");
+
+let minuteTyping;
+
+function typeMinute(){
+
+    clearInterval(minuteTyping);
+
+    minuteTitle.textContent = "";
+
+    let index = 0;
+
+    minuteTyping = setInterval(()=>{
+
+        minuteTitle.textContent += minuteText.charAt(index);
+
+        index++;
+
+        if(index >= minuteText.length){
+
+            clearInterval(minuteTyping);
+
+        }
+
+    },120);
+
+}
+
+document.querySelector(".timeline").style.display = "flex";
+nextBtn.addEventListener("click", ()=>{
+
+    story.style.display = "none";
+    page2.style.display = "block";
+
+    document.querySelector(".timeline").style.display = "flex";
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+    typeMinute();
+
+});
+
+
+const fly = document.getElementById("fly");
+const page3 = document.getElementById("page3");
+
+fly.addEventListener("click", ()=>{
+
+    page2.style.display = "none";
+
+    page3.style.display = "block";
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+});
+
+</script>
+
+</body>
+</html>
